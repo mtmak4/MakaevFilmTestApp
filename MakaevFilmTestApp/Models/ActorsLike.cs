@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace MakaevFilmTestApp.Models
 {
-    public class ActorLikeSetting
+    public class ActorsLike
     {
+        public int Id { get; set; }
         public int ActorId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

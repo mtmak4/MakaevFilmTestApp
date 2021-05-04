@@ -10,7 +10,9 @@ namespace MakaevFilmTestApp.Models
         public int Id { get; set; }
         public string Lastname { get; set; }
         public string Name { get; set; }
-        public DateTime DateProduction { get; set; }
- 
+        public string ActorDescription { get; set; }
+
+        public int Rate { get; set; }
+
     }
 }

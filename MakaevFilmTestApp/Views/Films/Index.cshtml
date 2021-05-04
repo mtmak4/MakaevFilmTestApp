@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MakaevFilmTestApp.Models.Film>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Кнопка выпадающего списка
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" asp-action="Index" >По алфавиту</a>
+        <a class="dropdown-item" asp-action="ViewByPopular">По популярности</a>
+        <a class="dropdown-item" asp-action="ViewByDate">По дате выхода в прокат</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FilmTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FilmDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateProduction)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilmTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilmDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateProduction)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

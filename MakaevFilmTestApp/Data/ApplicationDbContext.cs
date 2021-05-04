@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MakaevFilmTestApp.Models;
+using MakaevFilmTestApp.ViewModels;
 
 namespace MakaevFilmTestApp.Data
 {
@@ -12,5 +14,13 @@ namespace MakaevFilmTestApp.Data
             : base(options)
         {
         }
+        public DbSet<MakaevFilmTestApp.Models.Film> Films { get; set; }
+       
+        public DbSet<MakaevFilmTestApp.Models.Actor> Actors { get; set; }
+       
+        public DbSet<MakaevFilmTestApp.ViewModels.ActorLike> ActorLike { get; set; }
+       
+
+
     }
 }

@@ -11,7 +11,6 @@ namespace MakaevFilmTestApp.Models
         public string FilmTitle { get; set; }
         public string FilmDescription { get; set; }
         public DateTime DateProduction { get; set; }
-        
-
+        public int Rate { get; set; }
     }
 }
