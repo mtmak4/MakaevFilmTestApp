@@ -34,7 +34,8 @@ namespace MakaevFilmTestApp.Controllers
             }
             else
             {
-                return true;
+               
+                return likeOnActor.Like;
             }
         }
         // GET: ActorLikes
@@ -56,7 +57,7 @@ namespace MakaevFilmTestApp.Controllers
             {
                 //like - value like it on actor or not
                 bool like = checkOnLike(userId, item.Id);
-                int rate = _context.ActorLike.Where(x => x.ActorId == item.Id).Count();
+                int rate = _context.ActorLike.Where(x => x.ActorId == item.Id && x.Like == true).Count();
                 item.Rate = rate;
                 actorLikes.Add(new ActorLike { ActorId = item.Id, Actor = item, Like = like });
             }
@@ -79,9 +80,11 @@ namespace MakaevFilmTestApp.Controllers
             {
                 //like - value like it on actor or not
                 bool like = checkOnLike(userId, item.Id);
-                actorLikes.Add(new ActorLike { ActorId = item.Id, Actor = item, Like = like }); ;
+                int rate = _context.ActorLike.Where(x => x.ActorId == item.Id).Count();
+                item.Rate = rate;
+                actorLikes.Add(new ActorLike { ActorId = item.Id, Actor = item, Like = like });
             }
-            return View("Index", actorLikes.OrderBy(x => x.Actor.Lastname));
+            return View("Index",actorLikes.OrderByDescending(x => x.Actor.Rate));
         }
         // GET: ActorLikes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -207,10 +210,15 @@ namespace MakaevFilmTestApp.Controllers
         [HttpPost]
         public ActionResult LikeSet(int actorId)
         {
+            userId = (User.Identity.GetUserId());
+            var actor = _context.Actors.FirstOrDefault(x => x.Id == actorId);
             var searchingRecord = _context.ActorLike.FirstOrDefault(x => x.ActorId == actorId && x.UserId == userId);
             if (searchingRecord == null)
             {
-                _context.ActorLike.Add(new ActorLike { ActorId = actorId, UserId = userId, Like = true });
+                ActorLike actorLike = new ActorLike { ActorId = actorId,Actor=actor, UserId = userId, Like = true };
+                _context.ActorLike.Add(actorLike);
+                int iii = actorLike.Id;
+                _context.SaveChanges();
             }
             else
             {
@@ -224,7 +232,8 @@ namespace MakaevFilmTestApp.Controllers
         public string AjaxTest(ActorLike obj)
         {
 
-            int id = obj.ActorId;
+            int actorId = obj.ActorId;
+            LikeSet(actorId);
             return "Test";
         }
         private bool ActorLikeExists(int id)

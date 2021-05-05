@@ -51,13 +51,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UserId)
                 </td>
-                <td>
+                <td class="actor_rate">
                     @Html.DisplayFor(modelItem => item.Actor.Rate)
                 </td>
                 <td>
                     @if (item.Like)
                     {
-                        <div class="like_on like_area" ></div>
+                        <div class="like_on like_area" value="@item.ActorId"></div>
                     }
                     else
                     {
@@ -92,14 +92,27 @@
                 //dataType: 'jsonp', jsonp is for sending to a site other than the current one..
                 data: actorLike, // no need to stringify
                 success: function (result) {
-                    if (result == true) {
-                        window.location = "/Dashboard";
-                    } else {
-                        $QuickLoginErrors.text(result);
-                    }
+                  
+                    changeLikeImage(activeElement);
+                   
                 }
             });
 
         });
     });
+    function changeLikeImage(element) {
+        var likeOn = "like_on";
+        var likeOff = "like_off";
+        var actorRateDiv=element.parent().parent().children("td.actor_rate");
+        if (element.hasClass(likeOn)) {
+            element.removeClass(likeOn);
+            element.addClass(likeOff);
+            actorRateDiv.html(parseInt(actorRateDiv.html()) - 1);
+        } else {
+            element.removeClass(likeOff);
+            element.addClass(likeOn);
+            actorRateDiv.html(parseInt(actorRateDiv.html()) + 1)
+        }
+        
+    }
 </script>

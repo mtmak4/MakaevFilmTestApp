@@ -20,6 +20,8 @@ namespace MakaevFilmTestApp.Data
        
         public DbSet<MakaevFilmTestApp.ViewModels.ActorLike> ActorLike { get; set; }
        
+        public DbSet<MakaevFilmTestApp.Models.ActorsFilmParticipation> ActorsFilmParticipation { get; set; }
+       
 
 
     }

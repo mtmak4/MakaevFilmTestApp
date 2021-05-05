@@ -180,3 +180,8 @@ C:\Users\R\source\repos\MakaevFilmTestApp\MakaevFilmTestApp\obj\Debug\net5.0\Raz
 C:\Users\R\source\repos\MakaevFilmTestApp\MakaevFilmTestApp\obj\Debug\net5.0\Razor\Views\ActorLikes\Details.cshtml.g.cs
 C:\Users\R\source\repos\MakaevFilmTestApp\MakaevFilmTestApp\obj\Debug\net5.0\Razor\Views\ActorLikes\Edit.cshtml.g.cs
 C:\Users\R\source\repos\MakaevFilmTestApp\MakaevFilmTestApp\obj\Debug\net5.0\Razor\Views\ActorLikes\Index.cshtml.g.cs
+C:\Users\R\source\repos\MakaevFilmTestApp\MakaevFilmTestApp\obj\Debug\net5.0\Razor\Views\ActorsFilmParticipations\Create.cshtml.g.cs
+C:\Users\R\source\repos\MakaevFilmTestApp\MakaevFilmTestApp\obj\Debug\net5.0\Razor\Views\ActorsFilmParticipations\Delete.cshtml.g.cs
+C:\Users\R\source\repos\MakaevFilmTestApp\MakaevFilmTestApp\obj\Debug\net5.0\Razor\Views\ActorsFilmParticipations\Details.cshtml.g.cs
+C:\Users\R\source\repos\MakaevFilmTestApp\MakaevFilmTestApp\obj\Debug\net5.0\Razor\Views\ActorsFilmParticipations\Edit.cshtml.g.cs
+C:\Users\R\source\repos\MakaevFilmTestApp\MakaevFilmTestApp\obj\Debug\net5.0\Razor\Views\ActorsFilmParticipations\Index.cshtml.g.cs
