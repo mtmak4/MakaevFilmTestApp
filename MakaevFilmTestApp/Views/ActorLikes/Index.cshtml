@@ -55,19 +55,23 @@
                     @Html.DisplayFor(modelItem => item.Actor.Rate)
                 </td>
                 <td>
-                    @if (item.Like)
+                    @if (ViewData["userId"] != null)
                     {
-                        <div class="like_on like_area" value="@item.ActorId"></div>
-                    }
-                    else
-                    {
-                        <div class="like_off like_area" value="@item.ActorId"></div>
+                        @if (item.Like)
+                        {
+                            <div class="like_on like_area" value="@item.ActorId"></div>
+                        }
+                        else
+                        {
+                            <div class="like_off like_area" value="@item.ActorId"></div>
+                        }
                     }
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Details" asp-route-id="@item.ActorId">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-controller="Films" asp-action="GetActorFilms" asp-route-id="@item.ActorId">Фильмы в которых снимался актёр</a>
                 </td>
             </tr>
         }

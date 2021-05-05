@@ -32,6 +32,16 @@ namespace MakaevFilmTestApp.Controllers
         {
             return View("Index", await _context.Films.OrderByDescending(x => x.DateProduction).ToListAsync());
         }
+        public async Task<IActionResult> GetActorFilms(int id)
+        {
+            var filmsParticipiations = _context.ActorsFilmParticipation.Where(x => x.ActorId == id);
+            List<Film> actorFilms = new List<Film>();
+            foreach (var item in filmsParticipiations)
+            {
+                actorFilms.Add(_context.Films.Where(x => x.Id == item.FilmId).First());
+            }
+            return View("Index", actorFilms);
+        }
         // GET: Films/Details/5
         public async Task<IActionResult> Details(int? id)
         {

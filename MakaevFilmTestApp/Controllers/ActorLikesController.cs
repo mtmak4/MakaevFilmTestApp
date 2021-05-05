@@ -10,6 +10,7 @@ using MakaevFilmTestApp.ViewModels;
 using Microsoft.AspNet.Identity;
 
 using System.Security.Claims;
+using MakaevFilmTestApp.Models;
 
 namespace MakaevFilmTestApp.Controllers
 {
@@ -51,7 +52,7 @@ namespace MakaevFilmTestApp.Controllers
             {
                 userId = null;
             }
-
+            ViewData["userId"] = userId;
             var actors = _context.Actors;
             foreach (var item in actors)
             {
@@ -61,8 +62,10 @@ namespace MakaevFilmTestApp.Controllers
                 item.Rate = rate;
                 actorLikes.Add(new ActorLike { ActorId = item.Id, Actor = item, Like = like });
             }
-            return View(actorLikes.OrderBy(x => x.Actor.Lastname));
+            return View("Index",actorLikes.OrderBy(x => x.Actor.Lastname));
         }
+
+   
         public async Task<IActionResult> ViewByPopular()
         {
             try
@@ -74,7 +77,7 @@ namespace MakaevFilmTestApp.Controllers
             {
                 userId = null;
             }
-
+            ViewData["userId"] = userId;
             var actors = _context.Actors;
             foreach (var item in actors)
             {
@@ -94,14 +97,14 @@ namespace MakaevFilmTestApp.Controllers
                 return NotFound();
             }
 
-            var actorLike = await _context.ActorLike
+            var actorLike = await _context.Actors
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (actorLike == null)
             {
                 return NotFound();
             }
 
-            return View(actorLike);
+            return View("~/Views/Actors/Details.cshtml",actorLike);
         }
 
         // GET: ActorLikes/Create

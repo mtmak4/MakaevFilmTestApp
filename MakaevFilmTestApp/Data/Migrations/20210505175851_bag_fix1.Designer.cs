@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MakaevFilmTestApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210504083356_ratingactors")]
-    partial class ratingactors
+    [Migration("20210505175851_bag_fix1")]
+    partial class bag_fix1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,24 @@ namespace MakaevFilmTestApp.Data.Migrations
                     b.ToTable("Actors");
                 });
 
+            modelBuilder.Entity("MakaevFilmTestApp.Models.ActorsFilmParticipation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ActorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FilmId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActorsFilmParticipation");
+                });
+
             modelBuilder.Entity("MakaevFilmTestApp.Models.Film", b =>
                 {
                     b.Property<int>("Id")
@@ -76,7 +94,7 @@ namespace MakaevFilmTestApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ActorIdId")
+                    b.Property<int>("ActorId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Like")
@@ -86,8 +104,6 @@ namespace MakaevFilmTestApp.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ActorIdId");
 
                     b.ToTable("ActorLike");
                 });
@@ -290,15 +306,6 @@ namespace MakaevFilmTestApp.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("MakaevFilmTestApp.ViewModels.ActorLike", b =>
-                {
-                    b.HasOne("MakaevFilmTestApp.Models.Actor", "ActorId")
-                        .WithMany()
-                        .HasForeignKey("ActorIdId");
-
-                    b.Navigation("ActorId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

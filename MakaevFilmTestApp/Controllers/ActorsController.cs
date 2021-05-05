@@ -68,7 +68,7 @@ namespace MakaevFilmTestApp.Controllers
             }
             return View(actor);
         }
-
+     
         // GET: Actors/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -119,7 +119,16 @@ namespace MakaevFilmTestApp.Controllers
             }
             return View(actor);
         }
-
+        public async Task<IActionResult> GetFilmActors(Film film)
+        {
+            var actorsParticipiations = _context.ActorsFilmParticipation.Where(x => x.FilmId == film.Id);
+            List<Actor> filmActors = new List<Actor>();
+            foreach (var item in actorsParticipiations)
+            {
+                filmActors.Add(_context.Actors.Where(x => x.Id == item.ActorId).First());
+            }
+            return  View("Index", filmActors);
+        }
         // GET: Actors/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
