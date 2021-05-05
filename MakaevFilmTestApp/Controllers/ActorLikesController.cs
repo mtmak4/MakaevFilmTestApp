@@ -205,26 +205,26 @@ namespace MakaevFilmTestApp.Controllers
 
 
         [HttpPost]
-        public ActionResult LikeSet(int actorId, string userId, bool value)
+        public ActionResult LikeSet(int actorId)
         {
             var searchingRecord = _context.ActorLike.FirstOrDefault(x => x.ActorId == actorId && x.UserId == userId);
             if (searchingRecord == null)
             {
-                _context.ActorLike.Add(new ActorLike { ActorId = actorId, UserId = userId, Like = value });
+                _context.ActorLike.Add(new ActorLike { ActorId = actorId, UserId = userId, Like = true });
             }
             else
             {
-                searchingRecord.Like = value;
+                searchingRecord.Like = !searchingRecord.Like;
             }
             _context.SaveChangesAsync();
 
-            return PartialView("Index");
+            return View("Index");
         }
         [HttpPost]
         public string AjaxTest(ActorLike obj)
         {
 
-
+            int id = obj.ActorId;
             return "Test";
         }
         private bool ActorLikeExists(int id)

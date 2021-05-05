@@ -69,3 +69,19 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+.like_area{
+    width:30px;
+    height:30px;
+    background-size:contain;
+    background-position:center;
+   
+  
+}
+.like_on{
+    background-image:url(../img/hearton.png);
+
+}
+.like_off {
+    background-image: url(../img/heartoff.png);
+   
+}
