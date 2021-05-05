@@ -21,11 +21,11 @@ namespace MakaevFilmTestApp.Controllers
         public ActorLikesController(ApplicationDbContext context)
         {
             _context = context;
-        
+
         }
-        
-    
-        public bool checkOnLike(string userId,int actorId)
+
+
+        public bool checkOnLike(string userId, int actorId)
         {
             var likeOnActor = (_context.ActorLike.FirstOrDefault(x => x.ActorId == actorId && x.UserId == userId));
             if (likeOnActor == null)
@@ -38,7 +38,7 @@ namespace MakaevFilmTestApp.Controllers
             }
         }
         // GET: ActorLikes
-        
+
         public async Task<IActionResult> Index()
         {
             try
@@ -50,15 +50,17 @@ namespace MakaevFilmTestApp.Controllers
             {
                 userId = null;
             }
-            
+
             var actors = _context.Actors;
             foreach (var item in actors)
             {
                 //like - value like it on actor or not
                 bool like = checkOnLike(userId, item.Id);
-                actorLikes.Add(new ActorLike { ActorId=item.Id, Actor=item,Like = like });;
+                int rate = _context.ActorLike.Where(x => x.ActorId == item.Id).Count();
+                item.Rate = rate;
+                actorLikes.Add(new ActorLike { ActorId = item.Id, Actor = item, Like = like });
             }
-            return  View(actorLikes.OrderBy(x=>x.Actor.Lastname));
+            return View(actorLikes.OrderBy(x => x.Actor.Lastname));
         }
         public async Task<IActionResult> ViewByPopular()
         {
@@ -79,7 +81,7 @@ namespace MakaevFilmTestApp.Controllers
                 bool like = checkOnLike(userId, item.Id);
                 actorLikes.Add(new ActorLike { ActorId = item.Id, Actor = item, Like = like }); ;
             }
-            return View(actorLikes.OrderBy(x => x.Actor.Rate));
+            return View("Index", actorLikes.OrderBy(x => x.Actor.Lastname));
         }
         // GET: ActorLikes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -203,9 +205,9 @@ namespace MakaevFilmTestApp.Controllers
 
 
         [HttpPost]
-        public ActionResult LikeSet(int actorId,string userId,bool value)
+        public ActionResult LikeSet(int actorId, string userId, bool value)
         {
-            var searchingRecord=_context.ActorLike.FirstOrDefault(x => x.ActorId == actorId && x.UserId == userId)
+            var searchingRecord = _context.ActorLike.FirstOrDefault(x => x.ActorId == actorId && x.UserId == userId);
             if (searchingRecord == null)
             {
                 _context.ActorLike.Add(new ActorLike { ActorId = actorId, UserId = userId, Like = value });
@@ -214,13 +216,26 @@ namespace MakaevFilmTestApp.Controllers
             {
                 searchingRecord.Like = value;
             }
+            _context.SaveChangesAsync();
 
             return PartialView("Index");
         }
+        [HttpPost]
+        public string AjaxTest(ActorLike obj)
+        {
 
+
+            return "Test";
+        }
         private bool ActorLikeExists(int id)
         {
             return _context.ActorLike.Any(e => e.Id == id);
         }
     }
+    public class LogOnModel
+    {
+        public string Mobile { get; set; }
+        public string EmailID { get; set; }
+    }
+
 }

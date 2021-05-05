@@ -294,7 +294,8 @@ namespace MakaevFilmTestApp.Data.Migrations
                 {
                     b.HasOne("MakaevFilmTestApp.Models.Actor", "ActorId")
                         .WithMany()
-                        .HasForeignKey("ActorIdId");
+                        .HasForeignKey("ActorIdId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("ActorId");
                 });

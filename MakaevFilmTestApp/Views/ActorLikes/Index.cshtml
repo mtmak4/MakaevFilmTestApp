@@ -52,13 +52,16 @@
                     @Html.DisplayFor(modelItem => item.UserId)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Actor.Rate)
+                </td>
+                <td>
                     @if (item.Like)
                     {
                         <input type="checkbox" checked />
                     }
                     else
                     {
-                        <input type="checkbox"  />
+                        <input type="checkbox" />
                     }
                 </td>
                 <td>
@@ -69,4 +72,32 @@
             </tr>
         }
     </tbody>
+
 </table>
+<div id="output"></div>
+<input type="button" name="name" value="123" onclick="getEmployees()" />
+<script type="text/javascript">
+
+    function getEmployees() {
+        var actorLike = {
+            ActorId: "2",
+            Like: true
+};
+
+$.ajax({
+    url: '@Url.Action("AjaxTest", "ActorLikes")', // try to use Url Helper when possible
+    type: 'POST', // use Get for [HttpGet] action or POST for [HttpPost]
+    //contentType: 'application/json', not needed
+    //dataType: 'jsonp', jsonp is for sending to a site other than the current one..
+    data: actorLike, // no need to stringify
+    success: function (result) {
+        if (result == true) {
+            window.location = "/Dashboard";
+        } else {
+            $QuickLoginErrors.text(result);
+        }
+    }
+});
+
+    }
+</script>
